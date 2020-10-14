@@ -1,0 +1,7 @@
+field000.dat
+   0       0       0                       irflag   ibflag   iaflag
+ 200      10      10      10               npad     nap      ntx      nty
+1.2e2                                      bthresh
+   0       0       0                       iaunit   ipunit   incflag
+   1       1      20                       iseed    iverb    neq
+   1.      2.     0.995                    lambda   tfac0    tfactr
