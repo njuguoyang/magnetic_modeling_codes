@@ -21,6 +21,6 @@ These codes fit into the following topics, which have been described in [this pa
 - Quasi-separatrix layers (QSLs)
 
 ### 4. Magnetic helicity computation
-- Finite volume method, vector potential, etc.
+- Vector potential and finite volume method
 - Twist, writhe, linking numbers
-- Helicity flux integration
+- Helicity flux
