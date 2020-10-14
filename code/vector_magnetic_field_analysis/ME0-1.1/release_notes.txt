@@ -1,0 +1,5 @@
+Major modifications since previous release:
+
+Bug fix in the smoothing routines nacute5.f90 and nacute6.f90. This should
+only affect the results when running with nxmax not equal to nymax. Thanks to
+V. Boummier for finding the bug. 

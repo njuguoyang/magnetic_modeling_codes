@@ -1,0 +1,386 @@
+This code package for automated ambiguity resolution of vector magnetic field
+data is loosely based on the Minimum Energy ambiguity resolution method
+described by Metcalf (1994, Solar Phys., 155, 235).  The present version is
+described in Leka, Barnes & Crouch 2009, Proceedings of the 2nd Hinode Science
+Meeting, which is included with this tarball as Leka.pdf. 
+
+In this implementation, simulated annealing to find the global minimum to the
+function E = |div B| + lambda |J_z|, where the vertical derivative in the
+divergence term is approximated by the vertical derivative of the potential
+field with the observed line of sight component on the boundary.  After the
+ambiguity has been resolved based on the minimum energy state found, pixels
+below a given threshold in the transverse field strength are revisited using an
+iterative acute angle to nearest neighbors method, similar to that described in
+Canfield et al. (1993, Astrophys. J., 411, 362).  This is done because it has
+been found by Leka et al. (2009, Solar Phys., in press) that the minimum energy
+state is not the correct ambiguity resolution in the presence of noise.  Thus,
+in areas where the uncertainty in the azimuth is larger, the method looks for a
+smooth solution.
+
+Details of the package, how to compile and run, and an example, are given below.
+
+*****
+The code package consists of the following files:
+ambig.f
+boxit.f
+buffer.f
+CalcDE.f
+CalcDE_reconfig.f
+CalcE.f
+cuspl2d.f
+cuspleval2d.f
+cuspl.f
+cuspleval.f
+dfti_example_status_print.f90
+get_ran_pix.f
+minimise_energy.f
+nacute5.f
+nacute6.f
+pacute.f
+potential.f
+printerror.f
+ran3.f
+rd_field.f
+rd_fits.f
+rd_param.f
+rd_sotsp.f
+reconfig.f
+setup.f
+smooth.f
+sortrx.f
+transform.f
+update_fits.f
+write_field.f
+
+include_file.anneal.f
+include_file.bounds.f
+include_file.derivs.f
+include_file.energy.f
+include_file.field.f
+include_file.fits.f
+include_file.flags.f
+include_file.lambda.f     
+include_file.pix_size.f   
+include_file.point.f      
+include_file.potential.f  
+include_file.ran_pix.f
+include_file.reconfig.f   
+include_file.seed.f   
+include_file.sizes.f  
+include_file.verb.f   
+
+par
+makefile
+field_TPD10c.dat
+*****
+
+By default, it requires the Intel Math Kernel library (MKL) for performing
+FFTs, and the FITSIO library for I/O. The paths containing these files must be
+correctly set in the make file. The included make file is designed for version
+11 of the Intel Fortran compiler and MKL; for other versions, it may be
+necessary to modify the library calls and optimization flags. 
+
+The include_file.sizes.f file contains parameters (nxmax,nymax) which control
+the maximum dimensions of the arrays in the code. They should be set to at
+least the maximum array dimension expected, allowing for the fact that the
+input array dimensions will be padded by an additional 2*npad (see discussion
+of par file below) to improve the potential field calculation. 
+
+The par file contains the details of the case being running in the following 
+form:
+
+filename
+irflag   ibflag   iaflag
+npad     nap      ntx      nty
+bthresh
+iaunit   ipunit   incflag
+iseed    iverb    neq
+lambda   tfac0    tfactr
+
+filename is the name of the file containing the input data. 
+
+irflag determines whether the input data are in generic FITS format (irflag=1),
+in the FITS format with extensions found in the Hinode SOT/SP pipeline
+(irflag=2), or in a formatted text file (irflag=0). 
+
+ibflag determines whether the field is specified as line of sight and transverse 
+components plus the azimuthal angle (ibflag=0) or as the magnitude of the field, 
+plus the inclination and azimuthal angles (ibflag=1). 
+
+iaflag determines the direction of zero azimuthal angle: CCD+x (iaflag=0), CCD+y
+(iaflag=1), CCD-x (iaflag=2), CCD-y (iaflag=3). 
+
+npad determines the number of pixels to add on each side of the field of view, 
+to mitigate the effects of the period boundary conditions in using FFTs to 
+calculate the potential field. 
+
+nap determines the number of pixels over which to smoothly transition the field 
+to zero outside the field of view (must be less than npad else will be reset to 
+equal npad). 
+
+ntx sets the number of tiles in the x-direction (longitude) used to construct
+the potential field derivatives when the code is run using spherical geometry. 
+The spherical version of the code is not included in this release. 
+
+nty sets the number of tiles in the y-direction (latitude) used to construct
+the potential field derivatives when the code is run using spherical geometry.
+The spherical version of the code is not included in this release. 
+
+bthresh is the transverse field strength below which the nearest neighbor acute
+angle method will be use. Typically a value of 200G < bthresh < 400G produces
+reasonable results. It may be useful to start with a value about the 6-sigma
+detection level in the transverse field. 
+
+iaunit specifies whether azimuth is in radians (iaunit=0) or degrees
+(iaunit=1). 
+
+ipunit specifies whether pointing is in radians (ipunit=0) or degrees
+(ipunit=1). 
+
+incflag specifies whether inclination of 0 is vertical (incflag=0) or
+horizontal (incflag=1).
+
+iseed is used for initializing the random number generator. Must be a positive
+integer.
+
+iverb controls additional output: iverb=0 will print only an "END" statement
+when the code finished; iverb=0 will print a statement indicating when each
+stage of the code finishes; iverb=2 will print the energy at each temperature
+in the annealing, plus number of pixels flipped during each iteration in
+smoothing. The latter option produces a large amount of output, but can be
+useful to see how well the solution is converging. 
+
+neq determines the number of times pixels are visited at a given temperature.
+Must be a positive integer.
+
+lambda is the weighting factor between the divergence term and the vertical
+current density term. Must be positive (or zero). 
+
+tfac0 scales the initial temperature. Must be positive (and typically should not 
+be smaller than of order 1).
+
+tfactr determines the cooling rate. Must have 0 < tfactr < 1, with slower
+cooling for values closer to 1. Slower cooling is more likely to find the global 
+minimum, but takes longer to run. 
+
+An example of this type of par file is included with the code. 
+
+
+If the input data are in generic FITS format, the following information must
+also be present in the par file:
+
+iblong   ibtrans  ibazim
+longitude keyword
+latitude keyword
+p-angle keyword
+b-angle keyword
+radius keyword
+pixel size in x-direction keyword
+pixel size in y-direction keyword
+
+iblong, ibtrans, ibazim specify the array element in the FITS file containing the 
+line of sight component, transverse component and azimuth or magnitude of field, 
+inclination and azimuth. 
+
+longitude keyword specifies the keyword name (max 8 character string) in the FITS 
+file containing the longitude. 
+
+latitude keyword specifies the keyword name (max 8 character string) in the FITS 
+file containing the latitude. 
+
+p-angle keyword specifies the keyword name (max 8 character string) in the FITS 
+file containing the p-angle. 
+
+b-angle keyword specifies the keyword name (max 8 character string) in the FITS 
+file containing the b-angle. 
+
+radius keyword specifies the keyword name (max 8 character string) in the FITS 
+file containing the solar radius (must be in the same units as the pixel size). 
+
+pixel size in x-direction keyword specifies the keyword name (max 8 character
+string) in the FITS file containing the pixel size in the x-direction. Can be
+in any units, provided x- and y-pixel sizes are in the same units. 
+
+pixel size in y-direction keyword specifies the keyword name (max 8 character
+string) in the FITS file containing the pixel size in the y-direction. Can be
+in any units, provided x- and y-pixel sizes are in the same units. 
+
+
+If the input data are from the Hinode SP pipeline, such that all the images 
+are contained in extensions, the following information must be present in the 
+par file (in place of the information above for a generic fits file):
+
+jfs      jfi      jfa     jsf     jci
+
+jfs is the HDU number containing the field strength (typically jfs=2, for the
+first extension). 
+
+jfi is the HDU number containing the field inclination (typically jfs=3, for
+the second extension). 
+
+jfa is the HDU number containing the field azimuth (typically jfs=4, for the
+third extension). 
+
+jfs is the HDU number containing the straylight fraction (typically jfs=13, for
+the twelfth extension). 
+
+jci is the HDU number containing the continuum intensity (typically jfs=33, for
+the thirty-second extension). 
+
+
+If the input data are not in FITS format, the input data must be in the
+following form, in the file specified by "filename" in the par file:
+
+nx	ny
+xpix	ypix
+b	p	radius
+theta	phi
+bl(nx,ny)
+bt(nx,ny)
+ba(nx,ny)
+
+nx, ny are the dimension of the input arrays.
+
+xpix, ypix are the pixel sizes in the x- and y-directions.
+
+b is the solar b-angle. 
+
+p is the solar p-angle. 
+
+radius is the solar radius.
+
+theta is the central meridian angle of the center of the field of view. 
+
+phi is the latitude of the center of the field of view. 
+
+bl is an nx by ny array of the line of sight component of the field (or of the
+magnitude of the field). 
+
+bt is an nx by ny array of the transverse component of the field (or of the
+inclination angle of the field). 
+
+ba is an nx by ny array of the azimuthal angle, containing the ambiguity. 
+
+An example of this type of file, named field_TPD10c.dat, is included with the
+code package. The azimuth array contained in the file has the correct ambiguity
+resolution, so that code should recover this value, typically in at least 99%
+of the pixels, mod 360 degrees. Note that in some pixels, the result may be
+changed by 360 degrees, so the modulus is important when checking the results.
+This field was used by Leka et al. (2009) for comparing the performance of
+various ambiguity resolution methods.  Other test cases are available at
+http://www.cora.nwra.com/AMBIGUITY_WORKSHOP/2006_workshop/. 
+
+
+If the input data are in generic FITS format, then the azimuthal angle in the
+FITS file will be updated to reflect the ambiguity resolution, and a comment
+will be added to the file, indicating that the ambiguity was resolved using
+this method.  If the input data are not in FITS format, or are from the Hinode
+SP pipeline, a new file, named "azimuth.dat" will be created, containing a
+formatted array of the ambiguity-resolved azimuth angles, of the same size as
+the original. In either case, the angles will be given in the same units
+(degrees/radians) as the input angles. 
+
+*****
+To run the code:
+
+1) Familiarize yourself with the options listed above regarding file type,
+components, and angle definitions for your data.
+
+2) compile the code:
+-edit the file "makefile" for locations of the MKL libraries, and other specifics.
+-on the command line: %> make
+This should produce an executable called "ambig".
+
+3) In the directory where you will run the code, copy the file "par" 
+and edit to reflect your data.
+
+4) on the command line: %> ambig
+(it looks for the file "par").
+
+The result will be stored as described above depending on your data type.
+*****
+
+EXAMPLE CALL AND OUTPUT:
+
+leka@kolea%> ls                                  
+ambig.tar.gz                                                          
+
+leka@kolea%> tar -xvf ambig.tar.gz                  
+ambig.f                                                            
+boxit.f                                                            
+buffer.f                                                           
+CalcDE.f                                                           
+CalcDE_reconfig.f                                                  
+CalcE.f                                                            
+cuspl2d.f
+cuspleval2d.f
+cuspl.f
+cuspleval.f
+dfti_example_status_print.f90
+field_TPD10c.dat
+get_ran_pix.f                                                      
+include_file.anneal.f                                              
+include_file.bounds.f                                              
+include_file.derivs.f                                              
+include_file.energy.f                                              
+include_file.field.f                                               
+include_file.fits.f                                                
+include_file.flags.f                                               
+include_file.lambda.f                                              
+include_file.pix_size.f                                            
+include_file.point.f                                               
+include_file.potential.f                                           
+include_file.ran_pix.f                                             
+include_file.reconfig.f                                            
+include_file.seed.f                                                
+include_file.sizes.f                                               
+include_file.verb.f                                                
+Leka.pdf
+makefile                                                           
+minimise_energy.f                                                  
+nacute5.f                                                          
+nacute6.f                                                          
+pacute.f                                                           
+par                                                                
+potential.f                                                        
+printerror.f                                                       
+ran3.f                                                             
+README
+rd_field.f                                                         
+rd_fits.f                                                          
+rd_param.f                                                         
+rd_sotsp.f                                                         
+reconfig.f                                                         
+setup.f                                                            
+smooth.f
+sortrx.f                                                           
+transform.f                                                        
+update_fits.f                                                      
+write_field.f                                                      
+
+leka@kolea%> make 
+ifort -g -c /opt/local/mkl/include/mkl_dfti.f90
+ifort -g -c dfti_example_status_print.f90      
+ifort -extend_source -w ....... 
+
+leka@kolea%> ./ambig
+ parameters read                      
+ field read                           
+ transform calculated                 
+ buffering done                       
+ apodizing done
+ potential field done                 
+ optimization done
+ smoothing done
+ results written
+***END***
+
+If the file is a generic FITS (irflag=1), the FITS file will be updated.
+If a Hinode FITS or formatted array file, results written to a formatted output 
+file named "azimuth.dat', of the same size as the original arrays.
+Call the size nx, ny.  To read (for example in IDL):
+IDL> azim=fltarr(nx,ny)
+IDL> openr,1,'azimuth.dat'
+IDL> readf,1,azim
+IDL> close,1
+
