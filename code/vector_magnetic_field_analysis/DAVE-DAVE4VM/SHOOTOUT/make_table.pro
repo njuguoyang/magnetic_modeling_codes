@@ -1,0 +1,69 @@
+pro make_table,name1,file1,name2,file2,outputfile
+;
+print,name1,':',file1
+print,name2,':',file2
+;
+    unit=-1
+    norat='(A55,"&",A55,"&",F5.2,"&",F5.2,"&",F5.2,"&",F5.2,"&",F5.2,"&",F5.2,"\\")'
+;
+    data1=mrdfits(file1,4)
+    data2=mrdfits(file2,4)
+;
+    openw,unit,outputfile,/get_lun
+;
+    printf,unit,'%auto-ignore'
+;
+    printf,unit,'$u_x\,B_z$','$U_x\,B_z$',$
+                             data1.FTVX_R,data1.FTVX_C,data1.FTVX_L[1],$
+                             data2.FTVX_R,data2.FTVX_C,data2.FTVX_L[1],$
+                             format=norat
+;
+    printf,unit,'$u_y\,B_z$','$U_y\,B_z$',$
+                             data1.FTVY_R,data1.FTVY_C,data1.FTVY_L[1],$
+                             data2.FTVY_R,data2.FTVY_C,data2.FTVY_L[1],$
+                             format=norat
+;
+    printf,unit,'$v_{\perp{x}}$','$V_{\perp{x}}$',$
+                             data1.VPX_R,data1.VPX_C,data1.VPX_L[1],$
+                             data2.VPX_R,data2.VPX_C,data2.VPX_L[1],$
+                             format=norat
+;
+    printf,unit,'$v_{\perp{y}}$','$V_{\perp{y}}$',$
+                             data1.VPY_R,data1.VPY_C,data1.VPY_L[1],$
+                             data2.VPY_R,data2.VPY_C,data2.VPY_L[1],$
+                             format=norat
+;
+    printf,unit,'$v_{\perp{z}}$','$V_{\perp{z}}$',$
+                             data1.VPZ_R,data1.VPZ_C,data1.VPZ_L[1],$
+                             data2.VPZ_R,data2.VPZ_C,data2.VPZ_L[1],$
+                             format=norat
+;
+    printf,unit,'$\grad_h\cdot\left(\uF\,B_z\right)$',$
+                '$\Delta B_z/\Delta t$',$
+                  data1.induction_R,data1.induction_C,data1.induction_L[1],$
+                  data2.induction_R,data2.induction_C,data2.induction_L[1],$
+                             format=norat
+;
+    printf,unit,'$e_{\perp{x}}$','$E_{\perp{x}}$',$
+                             data1.EX_R,data1.EX_C,data1.EX_L[1],$
+                             data2.EX_R,data2.EX_C,data2.EX_L[1],$
+                             format=norat
+;
+    printf,unit,'$e_{\perp{y}}$','$E_{\perp{y}}$',$
+                             data1.EY_R,data1.EY_C,data1.EY_L[1],$
+                             data2.EY_R,data2.EY_C,data2.EY_L[1],$
+                             format=norat
+;
+    printf,unit,'$e_{\perp{z}}$','$E_{\perp{z}}$',$
+                             data1.EZ_R,data1.EZ_C,data1.EZ_L[1],$
+                             data2.EZ_R,data2.EZ_C,data2.EZ_L[1],$
+                             format=norat
+;
+    printf,unit,'$s_z$','$S_z$',data1.poynting_R,data1.poynting_C,data1.poynting_L[1],$
+                             data2.poynting_R,data2.poynting_C,data2.poynting_L[1],$
+                             format=norat
+    close,unit
+    free_lun,unit
+;
+end
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

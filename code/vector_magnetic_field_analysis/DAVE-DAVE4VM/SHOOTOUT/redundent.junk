@@ -1,0 +1,69 @@
+   print,"Brian'S HYPOTHESIS V_perp,h and DAVE perpendicularized"
+   filename=DIR+'f20b.eps'
+   xtitle=['ANMHD','V!D!9^!3h!N!5B!3!Dz!N'+cdot+'B!dh!N','V!D!9^!3h!N!5B!3!Dz!N'+cdot+'A!dp!N']
+   ytitle=['ANMHD','v!D!9^!3h!N!5B!3!Dz!N'+cdot+'B!dh!N','v!D!9^!3h!N!5B!3!Dz!N'+cdot+'A!dp!N']
+   output_fluxes,FAUX_TRANSPORT[1],DT[1],truth,mag,xtitle,ytitle,filename,good=good
+;
+   print & print,"Brian'S HYPOTHESIS V_perp,h and DAVE"
+   filename=DIR+'f20e.eps'
+   xtitle=['ANMHD','V!D!9^!3h!N!5B!3!Dz!N'+cdot+'B!dh!N','V!D!9^!3h!N!5B!3!Dz!N'+cdot+'A!dp!N']
+   ytitle=['DAVE','u!5B!3!Dz!N'+cdot+'B!dh!N','u!5B!3!Dz!N'+cdot+'A!dp!N']
+   output_fluxes,FAUX_TRANSPORT[1],DT[0],truth,mag,xtitle,ytitle,filename,good=good
+
+   print & print,"Pete's HYPOTHESIS V_h and DAVE"
+   filename=DIR+'f20d.eps'
+   xtitle=['ANMHD','V!Dh!N!5B!3!Dz!N'+cdot+'B!dh!N','V!D!h!N!5B!3!Dz!N'+cdot+'A!dp!N']
+   ytitle=['DAVE','u!5B!3!Dz!N'+cdot+'B!dh!N','u!5B!3!Dz!N'+cdot+'A!dp!N']
+   output_fluxes,FAUX_TRANSPORT[0],DT[0],truth,mag,xtitle,ytitle,filename,good=good
+;
+   print & print,"Pete's HYPOTHESIS V_perp,h and DAVE"
+   filename=DIR+'f20f.eps'
+   xtitle=['ANMHD','V!D!9^!3h!N!5B!3!Dz!N'+cdot+'B!dh!N','V!D!9^!3h!N!5B!3!Dz!N'+cdot+'A!dp!N']
+   ytitle=['DAVE','u!5B!3!Dz!N'+cdot+'B!dh!N','u!5B!3!Dz!N'+cdot+'A!dp!N']
+   output_fluxes,FAUX_TRANSPORT[3],DT[0],truth,mag,xtitle,ytitle,filename,good=good
+;
+   work=compute_vel_stats(truth.ftvx,truth.ftvy,DX,DY,good=good)
+   print,'flux transport'
+   output_errors,work
+;
+   work=compute_vel_stats(fpx,fpy,DPX,DPY,good=good)
+   print & print,'perpendicular horizontal plasma velocity/perpendicularized (Welsch)'
+   output_errors,work
+;
+   work=compute_vel_stats(fpx,fpy,DX,DY,good=good)
+   print & print,'perpendicular horizontal/horizontal
+   output_errors,work
+;   
+   work=compute_vel_stats(fx,fy,DX,DY,good=good)
+   print & print,'horizontal/horizontal
+   output_errors,work
+;
+   H=DX*mag.AX+DY*mag.AY
+   HT=(truth.VPX*mag.bz)*mag.AX+(truth.VPY*mag.bz)*mag.AY
+   print,R_correlate(HT[good],H[good])
+   plot,HT[good],H[good]
+
+   stop
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   X1=TRUTH.vpx*mag.bz
+   X2=TRUTH.vx*mag.bz
+   Y=dave.U0*mag.bz
+   R1=R_CORRELATE(X1[good],Y[good])   ; R_YX1
+   R2=R_CORRELATE(X2[good],Y[good])   ; R_YX2
+   RX=R_CORRELATE(X2[good],X1[good])  ; R_X1X2
+   DEMOULINX=MENG_TEST(R1[0],R2[0],RX[0],N_ELEMENTS(good))
+   print,'X',R1,R2,RX
+   help,DEMOULINX,/structure
+;
+   X1=TRUTH.vpy*mag.bz
+   X2=TRUTH.vy*mag.bz
+   Y=dave.V0*mag.bz
+   R1=R_CORRELATE(X1[good],Y[good])   ; R_YX1
+   R2=R_CORRELATE(X2[good],Y[good])   ; R_YX2
+   RX=R_CORRELATE(X2[good],X1[good])  ; R_X1X2
+   DEMOULINY=MENG_TEST(R1[0],R2[0],RX[0],N_ELEMENTS(good))
+;
+   print,'Y',R1,R2,RX
+   help,DEMOULINY,/structure
+   
+   stop

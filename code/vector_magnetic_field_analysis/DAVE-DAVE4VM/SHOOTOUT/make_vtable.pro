@@ -1,0 +1,29 @@
+pro make_vtable,name1,file1,name2,file2,outputfile
+;
+print,name1,':',file1
+print,name2,':',file2
+;
+    unit=-1
+   norat='(A12,"&",F5.2,"$\pm$",F4.2,"&",F5.2,"$\pm$",F4.2,"&",F4.2,"&",F4.2,"&",F4.2,"&",F5.2,"$\pm$",F4.2,"&",F5.2,"$\pm$",F4.2,"&",F4.2,"&",F4.2,"&",F4.2,"\\")'
+;
+    data1=mrdfits(file1,4)
+    data2=mrdfits(file2,4)
+;
+    openw,unit,outputfile,/get_lun
+;
+    printf,unit,'%auto-ignore'
+    printf,unit,'$\uF\,B_z$',data1.dftv[0:1],data1.dftv_speed[0:1],$
+                       data1.C_FTV[0],data1.CS_FTV[0],data1.WCOS_FTV,$
+                       data2.dftv[0:1],data2.dftv_speed[0:1],$
+                       data2.C_FTV[0],data2.CS_FTV[0],data2.WCOS_FTV,format=norat
+    printf,unit,'$\v_\perp$',data1.dVP[0:1],data1.dVP_speed[0:1],$
+                       data1.C_VP[0],data1.CS_VP[0],data1.WCOS_VP,$
+                       data2.dVP[0:1],data2.dVP_speed[0:1],$
+                       data2.C_VP[0],data2.CS_VP[0],data2.WCOS_VP,format=norat
+;
+    close,unit
+    free_lun,unit
+;
+;
+end
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

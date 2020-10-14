@@ -1,0 +1,44 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;
+;  Plot DAVE velocities versus ANMHD horizontal perpendicular plasma velocities
+;
+;
+   device,filename=DIR+'f21b.eps',/color,bits_per_pixel=8
+   pos=aspect(1.0,margin=0.08)+.06
+   scl=1.d5/1.d8
+   plot,[(mag.Bz*truth.VPX)[good],(mag.Bz*truth.VPY)[good]]*scl,[(mag.Bz*dave.VPX)[good],(mag.Bz*dave.VPY)[good]]*scl,psym=8,color=psc.black,position=pos,$
+   xtitle=  'ANMHD  !5V!3!D'+perp+'x!N!5B!3!Dz!N (red) & !5V!3!D'+perp+'y!N!5B!3!Dz!N (blue) [10!U8!N G cm/s]',$
+   ytitle='DAVE  v!D'+perp+'x!N!5B!3!Dz!N (red) & v!D'+perp+'y!N!5B!3!Dz!N (blue) [10!U8!N G cm/s]',$
+          _extra=extra,/nodata
+   oplot,(mag.Bz*truth.VPX)[good]*scl,(mag.Bz*dave.VPX)[good]*scl,psym=8,color=psc.red,$
+        _extra=extra
+   oplot,(mag.Bz*truth.VPY)[good]*scl,(mag.Bz*dave.VPY)[good]*scl,psym=8,color=psc.blue,$
+        _extra=extra
+   oplot,[-1.5,1.5],[-1.5,1.5],linestyle=2,thick=extra.thick,color=psc.black
+;
+   ux=[correlate((mag.Bz*truth.VPX)[good],(mag.Bz*dave.VPX)[good]),(r_correlate((mag.Bz*truth.VPX)[good],(mag.Bz*dave.VPX)[good]))[0]]
+   uy=[correlate((mag.Bz*truth.VPY)[good],(mag.Bz*dave.VPY)[good]),(r_correlate((mag.Bz*truth.VPY)[good],(mag.Bz*dave.VPY)[good]))[0]]
+;
+   spearman='Spearman:'
+   Lx=ladfit((mag.Bz[good]*truth[good].VPX),(mag.Bz[good]*dave[good].VPX))
+   Ly=ladfit((mag.Bz[good]*truth[good].VPY),(mag.Bz[good]*dave[good].VPY))
+;
+   xyouts,0.5,.85,string(ux[1],format='("!9r!3!Dx!N=",F4.2)'),$
+                         align=0.0,color=psc.black,/normal,_extra=extra
+   xyouts,0.5,.8,string(uy[1],format='("!9r!3!Dy!N=",F4.2)'),$
+                         align=0.0,color=psc.black,/normal,_extra=extra
+   xyouts,0.45,0.825,spearman,align=1,color=psc.black,_extra=extra,/normal
+;
+   xyouts,0.65,.30+dd,string(ux[0],format='("C!Dx!N=",F4.2)'),$
+                         align=0.0,color=psc.black,/normal,_extra=extra
+   xyouts,0.65,.25+dd,string(uy[0],format='("C!Dy!N=",F4.2)'),$
+                         align=0.0,color=psc.black,/normal,_extra=extra
+   xyouts,0.6,0.275+dd,'Pearson:',align=1,color=psc.black,_extra=extra,/normal
+;
+   xyouts,0.65,0.20+dd,string(Lx[1],format='("S!Dx!N=",F4.2)'),$
+                         align=0.0,color=psc.black,/normal,_extra=extra
+   xyouts,0.65,0.15+dd,string(Ly[1],format='("S!Dy!N=",F4.2)'),$
+                         align=0.0,color=psc.black,/normal,_extra=extra
+   xyouts,0.6,0.175+dd,'Slopes:',align=1,color=psc.black,_extra=extra,/normal
+;
+   device,/close_file

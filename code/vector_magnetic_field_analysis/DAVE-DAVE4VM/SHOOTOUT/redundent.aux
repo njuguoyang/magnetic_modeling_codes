@@ -1,0 +1,110 @@
+;
+   set_plot,'x'
+   fux=(MAG.BZ*DAVE.u0-TRUTH.ftvx)*scl
+   fuy=(MAG.BZ*DAVE.v0-TRUTH.ftvy)*scl
+;
+   fvx=MAG.BZ*(DAVE.u0-TRUTH.vx)*scl
+   fvy=MAG.BZ*(DAVE.v0-TRUTH.vy)*scl
+
+   fvpx=MAG.BZ*(DAVE.u0-TRUTH.vpx)*scl
+   fvpy=MAG.BZ*(DAVE.v0-TRUTH.vpy)*scl
+;
+   print,'fux=',total(fux[good]^2,/double),':',moment(fux[good],/double)
+   print,'fuy=',total(fuy[good]^2,/double),':',moment(fuy[good],/double)
+;
+   print,'fvpx=',total(fvpx[good]^2,/double),':',moment(fvpx[good],/double)
+   print,'fvpy=',total(fvpy[good]^2,/double),':',moment(fvpy[good],/double)
+;
+   print,'fvx=',total(fvx[good]^2,/double),':',moment(fvx[good],/double)
+   print,'fvy=',total(fvy[good]^2,/double),':',moment(fvy[good],/double)
+;
+ ;  set_plot,'x'
+ ;  plot,mag.bz*(truth.vpx-truth.vx)[good],fvu[good]
+
+ ;  stop
+;
+   K=N_ELEMENTS(good)
+   VX=(mag.Bz[good]*truth[good].VPX)
+   VY=(mag.Bz[good]*dave[good].U0)
+   data=replicate({VX:VX,VY:VY},2)
+   data[1].VX=(mag.Bz[good]*truth[good].VX)
+   data[1].VY=(mag.Bz[good]*dave[good].U0)
+   M=500L
+   N=10000L
+   ZX=bootstrap(data,M,N)
+   data[0].VX=(mag.Bz[good]*truth[good].VPY)
+   data[1].VX=(mag.Bz[good]*truth[good].VY)
+   ZY=bootstrap(data,M,N)
+
+   set_plot,'ps'
+   device,filename=DIR+'f13.eps'
+   
+   extra.psym=10
+   plothist,zx.z[1],bin=.01,charsize=2,xrange=[-1,1.2],yrange=[0,800],_extra=extra,xtitle='Fisher Z-Score',ytitle='Counts',/halfbin,axiscolor=psc.black
+   plothist,zx.z[0],bin=.01,/overplot,_extra=extra,/halfbin,color=psc.gray,/fill,fcolor=psc.gray
+   plothist,zy.z[0],bin=.01,/overplot,_extra=extra,/halfbin,color=psc.gray,/fill,fcolor=psc.gray
+   plothist,zx.z[1],bin=.01,/overplot,_extra=extra,/halfbin,color=psc.black
+   plothist,zy.z[1],bin=.01,/overplot,_extra=extra,/halfbin,color=psc.black
+;
+   zx0=moment(zx.z[0],/double)
+   zx1=moment(zx.z[1],/double)
+   zy0=moment(zy.z[0],/double)
+   zy1=moment(zy.z[1],/double)
+   print,M,N,zx0,format='("$V_{\perp{x}}$&",I4,"&",I5,"&",F6.3,"&",F6.3,"&",F6.3,"&",F6.3)'
+   print,M,N,zx1,format='("$V_{{x}}$&",I4,"&",I5,"&",F6.3,"&",F6.3,"&",F6.3,"&",F6.3)'
+   print,M,N,zy0,format='("$V_{\perp{y}}$&",I4,"&",I5,"&",F6.3,"&",F6.3,"&",F6.3,"&",F6.3)'
+   print,M,N,zy1,format='("$V_{{y}}$&",I4,"&",I5,"&",F6.3,"&",F6.3,"&",F6.3,"&",F6.3)'
+;
+   print & print
+   z1=(zx0[0]-zx1[0])/sqrt(zx0[1]+zx1[1])
+   z2=(zy0[0]-zy1[0])/sqrt(zy0[1]+zy1[1])
+   print,'z-score(x)=',z1,' p=',(1-gauss_pdf(abs(z1)))*2
+   print,'z-score(y)=',z2,' p=',(1-gauss_pdf(z2))*2
+   print & print
+
+   print,'ANMHD perp vs total Rx=',R_correlate(truth[good].VPX,truth[good].VX)
+   print,'ANMHD perp vs total Ry=',R_correlate(truth[good].VPY,truth[good].VY)
+
+   NP=N_ELEMENTS(good)
+   Lx=linfit((mag.Bz[good]*truth[good].VX),(mag.Bz[good]*dave[good].U0),sigma=SX)
+   Ly=linfit((mag.Bz[good]*truth[good].VY),(mag.Bz[good]*dave[good].V0),sigma=SY)
+   Lpx=linfit((mag.Bz[good]*truth[good].VPX),(mag.Bz[good]*dave[good].U0),sigma=SPX)
+   Lpy=linfit((mag.Bz[good]*truth[good].VPY),(mag.Bz[good]*dave[good].V0),sigma=SPY)
+
+   print,'SLOPES:'
+   TX=(LX[1]-LPX[1])/sqrt(SX[1]^2+SPX[1]^2)
+   TY=(LY[1]-LPY[1])/sqrt(SY[1]^2+SPY[1]^2)
+   print,2*(1-t_pdf(TX,2*NP-4))
+   print,2*(1-t_pdf(-TY,2*NP-4))
+   device,/close_file
+ ;
+   set_plot,'x'
+
+;   dave=compute_fluxes(mag,dave)
+   stop
+
+;
+
+end
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+function bootstrap,data,M,N
+;
+    sz=size(data[0].VX)
+;
+    P=sz[1]
+    work=replicate({r:[0.d0,0.d0],z:[0.d0,0.d0],zs:0.d0},N)
+;
+    for i=0L,N-1L do begin
+        INDEX=FIX(P*Randomu(seed,5*M),type=3)
+        INDEX=(INDEX[uniq(index)])[0:M-1]
+        work[i].r[0]=(r_correlate(data[0].VX[index],data[0].VY[index]))[0]
+        work[i].r[1]=(r_correlate(data[1].VX[index],data[1].VY[index]))[0]
+        work[i].z[0]=fisher_z_transform(work[i].r[0])
+        work[i].z[1]=fisher_z_transform(work[i].r[1])
+        work[i].zs=(work[i].z[0]-work[i].z[1])/Sqrt(2.d0*1.060/(M-3))
+     endfor
+;
+return,work
+
+end        
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
