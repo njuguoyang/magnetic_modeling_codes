@@ -1,9 +1,9 @@
 These IDL procedures are provided to analyze vector magnetic field. 
 Please refer to the following papers for the description of the 
 analyzing steps:
-http://adsabs.harvard.edu/abs/2013A%26A...555A..19G
-http://adsabs.harvard.edu/abs/2013ApJ...779..157G
-http://adsabs.harvard.edu/abs/2017ScChE..60.1408G
+https://ui.adsabs.harvard.edu/abs/2013A%26A...555A..19G
+https://ui.adsabs.harvard.edu/abs/2013ApJ...779..157G
+https://ui.adsabs.harvard.edu/abs/2017ScChD..60.1408G
 
 The procedures under the directory "./vector_magnetic_field_analysis_example", 
 are written by Yang Guo (Nanjing Univeristy). They are examples for reading HMI data, removing 
@@ -81,16 +81,16 @@ More information for the codes
 =====================================
 The procedures under the directory "./DAVE-DAVE4VM" are written by P. W. Schuck. 
 Please refer to the following papers for more information:
-http://adsabs.harvard.edu/abs/2005ApJ...632L..53S
-http://adsabs.harvard.edu/abs/2006ApJ...646.1358S
-http://adsabs.harvard.edu/abs/2008ApJ...683.1134S
+https://ui.adsabs.harvard.edu/abs/2005ApJ...632L..53S
+https://ui.adsabs.harvard.edu/abs/2006ApJ...646.1358S
+https://ui.adsabs.harvard.edu/abs/2008ApJ...683.1134S
 
 The procedures under the directory "./fieldline" are written by Yang Guo.
 It is used to compute, store, and visulize magnetic field lines in IDL.
  
 The procedures under the directory "./NPFC" are written by Manolis K. Georgoulis. 
 Please refer to the following paper for more information:
-http://adsabs.harvard.edu/abs/2005ApJ...629L..69G
+https://ui.adsabs.harvard.edu/abs/2005ApJ...629L..69G
 
 The procedures under the directory "./null_point" are written 
 by Kai Yang, Ze Zhong, and Yang Guo. It is used to locate magnetic null points and 
@@ -98,24 +98,24 @@ to visualize magnetic field lines in the vicinity of a magnetic null point.
 
 The prodedures in "./prepro_wie" are writeen by T. Wiegelmann. Refer to this paper 
 for more information:
-http://adsabs.harvard.edu/abs/2006SoPh..233..215W
+https://ui.adsabs.harvard.edu/abs/2006SoPh..233..215W
 
 The procedures under the directory "./twist" are written by Yang Guo
 It is used to compute the twist of two field lines. Please refer to the following papers 
 for more information:
-http://adsabs.harvard.edu/abs/2010ApJ...725L..38G
-http://adsabs.harvard.edu/abs/2017ApJ...840...40G
+https://ui.adsabs.harvard.edu/abs/2010ApJ...725L..38G
+https://ui.adsabs.harvard.edu/abs/2017ApJ...840...40G
 
 The procedures in the ME0-1.1 directory are written by Thomas R. Metcalf and 
 further improved by K. D. Leka. Please refer to the following papers for more 
 information:
-http://adsabs.harvard.edu/abs/1994SoPh..155..235M
-http://adsabs.harvard.edu/abs/2006SoPh..237..267M
-http://adsabs.harvard.edu/abs/2009SoPh..260...83L
+https://ui.adsabs.harvard.edu/abs/1994SoPh..155..235M
+https://ui.adsabs.harvard.edu/abs/2006SoPh..237..267M
+https://ui.adsabs.harvard.edu/abs/2009SoPh..260...83L
 
 The procedures in QSL are written by Kai Yang and Yang Guo.
 Read these papers for more information:
-http://adsabs.harvard.edu/abs/2013ApJ...779..157G
-http://adsabs.harvard.edu/abs/2015ApJ...806..171Y
+https://ui.adsabs.harvard.edu/abs/2013ApJ...779..157G
+https://ui.adsabs.harvard.edu/abs/2015ApJ...806..171Y
 A updated version written by Kai Yang can be found in this link:
 https://github.com/Kai-E-Yang/QSL
