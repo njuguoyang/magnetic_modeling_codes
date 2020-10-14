@@ -15,12 +15,14 @@ These codes fit into the following topics, which have been described in [this pa
 - Magnetohydrostatic (MHS) models
 - Magnetohydrodynamic (MHD) models
 
-### 3. Mangetic topology analysis
+### 3. Magnetic energy computation
+
+### 4. Magnetic topology analysis
 - Null point, spine, and fan structures
 - Bald pathces and magnetic dips
 - Quasi-separatrix layers (QSLs)
 
-### 4. Magnetic helicity computation
+### 5. Magnetic helicity computation
 - Vector potential and finite volume method
 - Twist, writhe, linking numbers
 - Helicity flux
