@@ -2,7 +2,7 @@
 FORTRAN and IDL codes to analyze solar magnetic field observations and construct magnetic models.
 Some readme files can be found under different pathes.
 
-These codes fit into the following topics, which have been described in [this paper](http://adsabs.harvard.edu/abs/2017ScChE..60.1408G).
+These codes fit into the following topics, which have been described in [this paper](https://ui.adsabs.harvard.edu/abs/2017ScChD..60.1408G).
 
 ### 1. Analysis of solar vector magnetic field observations
 - Stokes profiles inversion
@@ -10,10 +10,10 @@ These codes fit into the following topics, which have been described in [this pa
 - Projection effect correction
 - Optical flow techniques to derive velocity from time series of magnetic field observations
 
-### 2. Magnetic field models
-- Force-free field models including potential, linear force-free, and nonlinear force-free
+### 2. Magnetic field models  (dependent on [MPI-AMRVAC](https://github.com/amrvac/amrvac))
+- Potential, linear force-free, and nonlinear force-free models
 - Magnetohydrostatic (MHS) models
-- Magnetohydrodynamic (MHD) models (dependent on [MPI-AMRVAC](https://github.com/amrvac/amrvac))
+- Magnetohydrodynamic (MHD) models
 
 ### 3. Mangetic topology analysis
 - Null point, spine, and fan structures
