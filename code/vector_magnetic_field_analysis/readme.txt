@@ -32,8 +32,8 @@ after sourcing the .cshrc file, the path containing the vector magnetic field an
 code will be included in the search paths of IDL.
 
 In "./vector_magnetic_field_analysis_example", only procedures and working directories 
-are provided, while data and executables are omitted. A more complete exmaple 
-is provided in a separate but larger zip file "example_vector_magnetic_field_20150827.zip".
+are provided, while data and executables are omitted. An exmaple with SDO/HMI data
+is provided in a separate but larger directory "../../example/example_vector_magnetic_field_20150827.zip".
 
 An example of the working flow is as follows:
 (1) Download HMI vector magnetic field data in "./vector_magnetic_field_analysis/01data".
