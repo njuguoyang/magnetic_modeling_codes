@@ -13,6 +13,7 @@ nonlinear force-free field extrapolation, coaligning two magnetic field maps,
 computing the velocity and vertical electric currents. The precedures should be rewritten 
 for you own purpose. These procedures may call the procedures in the following 
 directories:
+./ambiguity
 ./DAVE-DAVE4VM
 ./fieldline
 ./NPFC
