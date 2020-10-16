@@ -1,6 +1,6 @@
 # Magnetic Modeling Codes
 FORTRAN and IDL codes to analyze solar magnetic field observations and construct magnetic models.
-Some readme files can be found under different pathes.
+Some readme files can be found under different paths.
 
 These codes fit into the following topics, which have been described in [this paper](https://ui.adsabs.harvard.edu/abs/2017ScChD..60.1408G).
 
