@@ -124,3 +124,5 @@ https://ui.adsabs.harvard.edu/abs/2013ApJ...779..157G
 https://ui.adsabs.harvard.edu/abs/2015ApJ...806..171Y
 A updated version written by Kai Yang can be found in this link:
 https://github.com/Kai-E-Yang/QSL
+This updated version has several advantages, such as using Scott's method in ApJ 2017,
+parallelized with OPENMP, working in both the Cartesian and spherical coordiante systems.
