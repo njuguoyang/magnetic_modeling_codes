@@ -1,0 +1,4 @@
+*.pro linguist-language=IDL
+*.f90 linguist-language=Fortran
+*.t linguist-language=Fortran
+.int linguist-language=Text
