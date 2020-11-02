@@ -2,10 +2,10 @@ This path contains the user files
 for the potential and nonlinear force-free 
 field extrapolation in the Cartesian coordinates 
 with a uniform grid. 
-The files have to be used in combination with MPI-AMRVAC version 2.0, 
+The files have to be used in combination with MPI-AMRVAC version 2.0+ (tag relativistic_wip specifically)
 
 which can be found via this link:
-https://github.com/amrvac/amrvac/releases/tag/v2.0
+https://github.com/amrvac/amrvac/releases/tag/relativistic_wip
 
 
 The usrer files and setups for both the potential field and nonlinear force-free field
