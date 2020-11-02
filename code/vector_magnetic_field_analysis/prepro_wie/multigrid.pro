@@ -39,7 +39,7 @@ help, folder,nx,ny,nz,nd
 ; test if nx,ny,nz,nd are multiples of reducer
 dummy=(nx mod reducer) +(ny mod reducer) + (nz mod reducer) +  (nd mod reducer)
 
-if (dummy ne 0) then print,'nx,ny,nz,nd must me multiples of',reducer
+if (dummy ne 0) then print,'nx,ny,nz,nd must be multiples of',reducer
 if (dummy eq 0) then begin
 print,'Multigrid on', level, ' grids.'
 
