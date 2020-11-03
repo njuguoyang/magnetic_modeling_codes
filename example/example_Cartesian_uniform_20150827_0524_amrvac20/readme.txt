@@ -2,7 +2,7 @@ This path contains the user files
 for the potential and nonlinear force-free 
 field extrapolation in the Cartesian coordinates 
 with a uniform grid. 
-The files have to be used in combination with MPI-AMRVAC version 2.0+ (tag b7e967e)
+The files have to be used in combination with MPI-AMRVAC version 2.0+ (commit b7e967e)
 
 which can be found via this link:
 https://github.com/amrvac/amrvac/tree/b7e967ecfbaa027a683fd54525f3a83cd0ad9251
