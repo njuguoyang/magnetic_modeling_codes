@@ -2,10 +2,12 @@
 
 01plot_hmi.pro is used to read SDO/HMI data and to remove the 180 degree ambiguity using 
 "*disambig.fits" in "../01data". The most important variables in 01plot_hmi.pro, which 
-needs to been determined by the user, are dx0 and dy0. They are used to determine the 
-center coordinate of the solar disk. We ususlly measure the four extremes of the solar 
-disk to determine these parameters. One may also use other methods to do that. Setting 
-dx0=0 and dy0=0 to adopt the default coordinates provided by SDO/HMI.
+needs to been determined by the user, are 
+> dx0 and dy0
+
+They are used to determine the center coordinate of the solar disk. We ususlly measure the 
+four extremes of the solar disk to determine these parameters. One may also use other methods 
+to do that. Setting dx0=0 and dy0=0 to adopt the default coordinates provided by SDO/HMI.
 
 05projection.pro is used to correct the projection effect. Important issues include the
 file:   
