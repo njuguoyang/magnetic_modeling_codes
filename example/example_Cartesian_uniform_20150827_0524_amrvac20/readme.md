@@ -33,4 +33,4 @@ field extrapolation.
 (4) Setup, make, and run amrvac to get the nonlinear force-free field in 
 > ./example_Cartesian_uniform_20150827_0524_amrvac20
 
-Note: refer to [amrvac.org](amrvac.org) for more information on how to setup, make, and run amrvac.
+Note: refer to [amrvac.org](http://amrvac.org) for more information on how to setup, make, and run amrvac.
