@@ -31,7 +31,7 @@ interest must obey:
 > nx = (2^n1 \* 3^n2 \* 5^n3 ... + 4)\*(2^(level-1))    
 > ny = similar to nx but unnecessary to be the same   
 
-n1 is integer geter than 0, n2, n3 ... are integer number that greater than or equivalent to 0,
+n1 is integer greater than 0, n2, n3 ... are integer number that greater than or equivalent to 0,
 and level=1, 2, 3 ...    
 > (1) nx and ny needs to be multiples of 2^(level-1). This is the requirement of [creo_lv3.pro](https://github.com/njuguoyang/magnetic_modeling_codes/blob/main/example/example_vector_magnetic_field_20150827/03preprocess/creb_lv3.pro),    
 >>    level=1 means no rebin, keeping the original spatial resoltuion.     
