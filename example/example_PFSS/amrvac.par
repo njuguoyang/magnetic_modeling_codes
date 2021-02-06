@@ -1,0 +1,90 @@
+!$AMRVAC_DIR/setup.pl -d=3
+
+ &filelist
+        base_filename='output/lfff'
+        saveprim=.true.
+        autoconvert=.true.
+        convert_type='vtuBmpi'
+        nwauxio=9
+ /  
+
+        convert=.true.
+        convert_type='oneblockB'
+        nwauxio=0
+        level_io=1
+        w_write(1)=.false.
+        w_write(2)=.false.
+        w_write(3)=.false.
+        w_write(4)=.false.
+        snapshotnext=1
+
+ &savelist
+        itsave(1,1)=0
+        itsave(1,2)=0
+        ditsave_log=1
+ /
+        dtsave_dat=2.d0
+        ditsave_dat=100
+
+ &stoplist
+        dtmin=1.D-10
+        it_max=0
+ /
+        time_max=60.d0
+        time_reset=.true.
+
+ &methodlist
+        time_integrator='threestep'
+        flux_scheme=20*'hll'
+        limiter=20*'cada3'
+        small_pressure=1.0d-14
+        small_density=1.0d-14
+ /
+
+ &boundlist
+        typeboundary_min1 = 7*'special'
+        typeboundary_max1 = 7*'special'
+        typeboundary_min2 = 7*'special'
+        typeboundary_max2 = 7*'special'
+        typeboundary_min3 = 7*'special'
+        typeboundary_max3 = 7*'special'
+ /
+
+ &meshlist
+        refine_criterion=3
+        refine_max_level=1
+        refine_threshold=20*0.2d0
+        derefine_ratio=20*0.1d0
+        w_refine_weight(1)=0.4d0
+        w_refine_weight(5)=0.2d0
+        w_refine_weight(6)=0.2d0
+        w_refine_weight(7)=0.2d0
+        block_nx1=18
+        block_nx2=18
+        block_nx3=18
+domain_nx1 =     180
+domain_nx2 =     180
+domain_nx3 =     360
+xprobmin1  =      1.0d0
+xprobmax1  =       2.5d0
+xprobmin2  =    0.0d0
+xprobmax2  =      0.5d0
+xprobmin3  =    0.0d0
+xprobmax3  =      1.0d0
+        ditregrid=2
+        stretched_grid=.true.
+        stretched_dim(1)=.true.
+        qstretch_baselevel=1.02
+        max_blocks=6000
+ /
+
+ &paramlist
+        typecourant='maxsum'
+        courantpar=0.8d0
+ /
+
+ &mhd_list
+        mhd_energy=.false.
+        mhd_adiab=1.0d0
+ /
+
