@@ -48,6 +48,10 @@ contains
 
     lalpha=0.d0    ! alpha coefficient for linear force-free field
     llift=0.d0     ! lift up domain above bottom magnetogram
+                   ! Usually, we need to lift up domain above bottom magnetogram by 0.5*dz, since the potential
+                   ! field assumes the bottom boundary lies on the cell surface between the
+                   ! ghost layers and the physcial domain, while we want the bottom boundary
+                   ! lies on the cell center of the inner ghost layer.
  
     ! prepare magnetogram at bottom
     if(firstusrglobaldata) then
