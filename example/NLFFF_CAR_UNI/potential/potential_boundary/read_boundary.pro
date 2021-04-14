@@ -57,8 +57,8 @@ print,'xc,yc (cm)',xc,yc
 print,'dx,dy (cm)',dx,dy
 x1=xc-nx1*dx/2
 x2=xc+nx1*dx/2
-y1=yc-nx2*dx/2
-y2=yc+nx2*dx/2
+y1=yc-nx2*dy/2
+y2=yc+nx2*dy/2
 ; output 
 print,'x,y, and z range (10 Mm):'
 print,'        xprobmin1=',strtrim(string(x1*1.e-9),2),'d0'
