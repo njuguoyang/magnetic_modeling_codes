@@ -101,7 +101,7 @@ The procedures under the directory "./null_point" are written
 by Kai Yang, Ze Zhong, and Yang Guo. It is used to locate magnetic null points and 
 to visualize magnetic field lines in the vicinity of a magnetic null point.
 
-The prodedures in "./prepro_wie" are writeen by T. Wiegelmann. Refer to this paper 
+The prodedures in "./prepro_wie" are written by T. Wiegelmann. Refer to this paper 
 for more information:
 https://ui.adsabs.harvard.edu/abs/2006SoPh..233..215W
 
