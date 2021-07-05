@@ -4,7 +4,7 @@ This path contains the user (mod_usr.t) and parameter (amrvac.par) files for the
 
 The files have to be used in combination with MPI-AMRVAC version 2.0+ (commit b7e967e), which can be found via [this link](https://github.com/amrvac/amrvac/tree/b7e967ecfbaa027a683fd54525f3a83cd0ad9251). The applicability to other versions needs further tests.
 
-The boundary condition (synoptic map for the radial magentic field) is provided in ./potential_boundary. The format should confom with the reading subroutine under MPI_AMRVAC/src/physics/mod_pfss.t
+The boundary condition (synoptic map for the radial magnetic field) is provided in ./potential_boundary. The format should confom with the reading subroutine under MPI_AMRVAC/src/physics/mod_pfss.t
 >        call MPI_FILE_OPEN(MPI_COMM_SELF,mapname,MPI_MODE_RDONLY,MPI_INFO_NULL,&
 >                           file_handle,ierrmpi)
 >        call MPI_FILE_READ(file_handle,xm,1,MPI_INTEGER,statuss,ierrmpi)
