@@ -19,3 +19,9 @@ The boundary condition (synoptic map for the radial magnetic field) is provided 
 >        call MPI_FILE_READ(file_handle,b_r0,xm*ym,MPI_DOUBLE_PRECISION,&
 >                           statuss,ierrmpi)
 >        call MPI_FILE_CLOSE(file_handle,ierrmpi)
+
+Note that xm is the size in the Phi direction, ym is that in the Theta direction. And one should set the following values in amrvac.par
+>     domain_nx1 = ym
+>     domain_nx2 = ym
+>     domain_nx3 = xm
+And note that block_nx1, block_nx2, block_nx3 should be factor of domain_nx1, domain_nx2, domain_nx3, respectively. And block_nx1, block_nx2, block_nx3 should be even numbers.
