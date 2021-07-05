@@ -1,7 +1,7 @@
 !$AMRVAC_DIR/setup.pl -d=3
 
  &filelist
-        base_filename='output/lfff'
+        base_filename='lfff'
         saveprim=.true.
         autoconvert=.true.
         convert_type='vtuBmpi'
