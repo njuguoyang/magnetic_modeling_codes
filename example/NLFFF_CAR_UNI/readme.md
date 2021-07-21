@@ -17,7 +17,7 @@ Run the read_boundary.pro, which is an IDL procedure. It prepares the boundary c
 for the potential field. Note that allboundaries.dat contains the vector magnetic field 
 on the photosphere observed by SDO/HMI. It has been processed following the steps detailed 
 in [this paper](https://ui.adsabs.harvard.edu/abs/2017ScChD..60.1408G), and has been processed 
-by the codes under [this path](https://github.com/njuguoyang/magnetic_modeling_codes/tree/main/example/example_vector_magnetic_field_20150827).
+by the codes under [this path](https://github.com/njuguoyang/magnetic_modeling_codes/tree/main/example/vmf_analysis).
 
 (2) Go to     
 > ./potential
