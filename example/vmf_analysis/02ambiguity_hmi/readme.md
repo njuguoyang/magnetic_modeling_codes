@@ -23,7 +23,7 @@ of view. But sometimes, one may want to control Lcc to be a specific location. T
 to tune this variable.
 
 Once we get the output file from 05projection.pro, go to "./05projection", run plot_submap_m.pro.
-Here, one needs to set the x- and y-ranges for the field of view. One may also use the irange
+Here, one needs to set the x- and y-ranges for the field of view. One may also use the /pixel
 keywords in sub_map.pro to control the pixel numbers more precisely. To fulfill the requirements
 of procedures in "../03preprocess" and AMRVAC, the pixel numbers of the cropped region of
 interest must obey: 
