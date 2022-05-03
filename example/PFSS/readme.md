@@ -32,4 +32,4 @@ Note that xm is the size in the Phi direction, ym is that in the Theta direction
 >     domain_nx3 = xm
 And note that block_nx1, block_nx2, block_nx3 should be factors of domain_nx1, domain_nx2, domain_nx3, respectively. And block_nx1, block_nx2, block_nx3 should be even numbers.
 
-Here are [the codes to prepare the PFSS boundary](https://github.com/njuguoyang/magnetic_modeling_codes/tree/main/example/prepro_sph). They also prepare the boundary data for a nonlinear force-free field extrapolation in the spherical coordinate system.
+Here are [some IDL codes to prepare the PFSS boundary](https://github.com/njuguoyang/magnetic_modeling_codes/tree/main/example/prepro_sph). They also prepare the boundary data for a nonlinear force-free field extrapolation in the spherical coordinate system.
