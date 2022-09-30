@@ -28,7 +28,7 @@ Fow example, use .cshrc in Linux to set the search paths of IDL.
 add the following command in .cshrc  
 >    setenv IDL_STARTUP /home/my_path/.idl_startup.pro  
 >    
-create a new file, .idl_starup.pro under the path /home/my_path
+create a new file, .idl_starup.pro under the path /home/my_path and
 add the following command in .idl_startup.pro  
 >    !path=expand_path('+/home/my_path/magnetic_modeling_codes')+':'+!path  
 >    
