@@ -2,7 +2,7 @@
 
 This path contains the user (mod_usr.t) and parameter (amrvac.par) files for the PFSS model.
 
-The files have to be used in combination with MPI-AMRVAC version 2.0+ (commit fa03a48), which can be found via [this link](https://github.com/amrvac/amrvac/commit/fa03a48cfb53cee18b4f5db0c1ab1f28e122a6c3).  Or, download the latest version and use the following Git command in a Git Repository:
+The files have to be used in combination with MPI-AMRVAC version 2.2+ (commit fa03a48), which can be found via [this link](https://github.com/amrvac/amrvac/commit/fa03a48cfb53cee18b4f5db0c1ab1f28e122a6c3).  Or, download the latest version and use the following Git command in a Git Repository:
 > cd ~/codes    
 > git clone https://github.com/amrvac/amrvac.git    
 > cd ~/codes/amrvac    
