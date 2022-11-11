@@ -28,7 +28,7 @@
         time_reset=.true.
 
  &methodlist
-        time_integrator='onestep'
+        time_stepper='onestep'
         flux_scheme=20*'cd4'
         limiter=20*'koren'
         small_pressure=1.0d-14
