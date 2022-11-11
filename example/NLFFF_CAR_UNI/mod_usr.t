@@ -209,7 +209,7 @@ contains
       ixIMmin3=ixOmin3-1;ixIMmax3=ixOmax3;
       call getggrav(tmp1,ixI^L,ixIM^L,x)
       ! using the formula d(rho)/dz=g/T*rho
-      if (typeaxial=='slabstretch') then
+      if (coordinate==Cartesian_stretched) then
         do ix3=ixOmin3,ixOmax3
           w(ix3^%3ixO^S,rho_)=w(ix3-2^%3ixO^S,rho_)+(0.5d0*block%dx(ix3^%3ixO^S,3)&
                          +block%dx(ix3-1^%3ixO^S,3)+ 0.5d0*block%dx(ix3-2^%3ixO^S,3))&
