@@ -2,11 +2,11 @@
 
 This path contains the user files for the potential and nonlinear force-free field extrapolation in the Cartesian coordinates with a uniform grid. 
 
-The files have to be used in combination with MPI-AMRVAC version 2.2+ (commit fa03a48), which can be found via [this link](https://github.com/amrvac/amrvac/commit/fa03a48cfb53cee18b4f5db0c1ab1f28e122a6c3). Or, download the latest version and use the following Git command in a Git Repository:
+The files have to be used in combination with MPI-AMRVAC version 3.0. Download the latest version and use the following Git command in a Git Repository:
 > cd ~/codes    
 > git clone https://github.com/amrvac/amrvac.git    
 > cd ~/codes/amrvac    
-> git checkout fa03a48
+> git checkout amrvac3.0
 
 The user files and setups for both the potential field and nonlinear force-free field are provided in the files:
 > ./potential    
