@@ -5,8 +5,7 @@ This path contains the user files for the potential and nonlinear force-free fie
 The files have to be used in combination with MPI-AMRVAC version 3.0. Download the latest version and use the following Git command in a Git Repository:
 > cd ~/codes    
 > git clone https://github.com/amrvac/amrvac.git    
-> cd ~/codes/amrvac    
-> git checkout amrvac3.0
+> cd ~/codes/amrvac
 
 The user files and setups for both the potential field and nonlinear force-free field are provided in the files:
 > ./potential    
