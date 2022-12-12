@@ -6,7 +6,6 @@ The files have to be used in combination with MPI-AMRVAC version 3.0. Download t
 > cd ~/codes    
 > git clone https://github.com/amrvac/amrvac.git    
 > cd ~/codes/amrvac    
-> git checkout amrvac3.0
 
 The applicability to other versions needs further tests.
 
