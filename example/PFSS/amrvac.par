@@ -58,8 +58,7 @@
       xprobmin3  =     0.0d0
       xprobmax3  =     1.0d0
         ditregrid=2
-        stretched_grid=.true.
-        stretched_dim(1)=.true.
+        stretch_dim='uni','none','none'
         qstretch_baselevel=1.02
         max_blocks=6000
  /
