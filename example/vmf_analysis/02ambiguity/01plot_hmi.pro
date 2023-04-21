@@ -1,13 +1,13 @@
 ;pro plot_hmi
 
 fn1 = '../01data/hmi.B_720s.20150827_052400_TAI.field.fits'
-read_sdo,fn1,index1,data1
+read_sdo,fn1,index1,data1    ;add /noshell keyword in Windows
 index2map,index1,data1,mapb
 fn2 = '../01data/hmi.B_720s.20150827_052400_TAI.inclination.fits'
-read_sdo,fn2,index2,data2
+read_sdo,fn2,index2,data2    ;add /noshell keyword in Windows
 index2map,index2,data2,mapi
 fn3='../01data/hmi.B_720s.20150827_052400_TAI.azimuth.fits'
-read_sdo,fn3,index3,data3
+read_sdo,fn3,index3,data3    ;add /noshell keyword in Windows
 index2map,index3,data3,mapa
 
 mapbz = mapb
