@@ -104,7 +104,7 @@ The prodedures in "./prepro_wie" are written by T. Wiegelmann. Refer to this pap
 for more information:  
 > https://ui.adsabs.harvard.edu/abs/2006SoPh..233..215W  
 
-The procedures under the directory "./twist" are written by Yang Guo
+The procedures under the directory "./twist" are written by Yang Guo.
 It is used to compute the twist of two field lines. Please refer to the following papers 
 for more information:  
 > https://ui.adsabs.harvard.edu/abs/2010ApJ...725L..38G  
@@ -126,4 +126,4 @@ A updated version written by Kai Yang can be found in this link:
 > https://github.com/Kai-E-Yang/QSL  
 > 
 This updated version has several advantages, such as using Scott's method in ApJ 2017,
-parallelized with OPENMP, working in both the Cartesian and spherical coordiante systems.
+parallelized with OPENMP, working in both the Cartesian and spherical coordinate systems.
