@@ -82,7 +82,7 @@ contains
 
     ! use PFSS model to compute B  
     call pfss(ixI^L,ixO^L,bpf,x)
-    w(ixI^S,mag(1):mag(ndir))=bpf(ixI^S,1:ndir)/unit_magneticfield
+    w(ixO^S,mag(1):mag(ndir))=bpf(ixO^S,1:ndir)/unit_magneticfield
     w(ixO^S,mom(:))=zero
     w(ixO^S,rho_)=rhob*dexp(usr_grav*SRadius**2/Tiso*&
                   (1.d0/SRadius-1.d0/(x(ixO^S,1)+SRadius)))
